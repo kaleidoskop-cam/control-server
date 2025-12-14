@@ -60,5 +60,9 @@ def motor_direction(body: schemas.MotorSpeed):
     else:
         direction.off()
 
-    on_off_time = 1 / (MAX_SPEED * body.speed)
-    motor.blink(on_time=on_off_time, off_time=on_off_time)
+    if body.speed == 0:
+        motor_enable.off()
+    else:
+        motor_enable.on()
+        on_off_time = 1 / (MAX_SPEED * body.speed)
+        motor.blink(on_time=on_off_time, off_time=on_off_time)
