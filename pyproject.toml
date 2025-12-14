@@ -7,5 +7,6 @@ requires-python = ">=3.13"
 dependencies = [
     "fastapi>=0.124.2",
     "gpiozero>=2.0.1",
+    "python-dotenv>=1.2.1",
     "uvicorn>=0.38.0",
 ]
