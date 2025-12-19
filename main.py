@@ -14,6 +14,9 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 MAX_SPEED = int(os.getenv("MAX_SPEED", 10000))
+PIN_MOTOR_ENABLE = int(os.getenv("PIN_MOTOR_ENABLE", 26))
+PIN_MOTOR_STEP = int(os.getenv("PIN_MOTOR_STEP", 13))
+PIN_MOTOR_DIRECTION = int(os.getenv("PIN_MOTOR_DIRECTION", 6))
 app = FastAPI()
 
 class PinMock:
@@ -32,14 +35,14 @@ class PinMock:
 
 # configure raspberry pi output pins
 try:
-    motor = LED(4)
-    motor_enable = OutputDevice(27, active_high=False)
-    direction = OutputDevice(17)
+    motor = LED(PIN_MOTOR_STEP)
+    motor_enable = OutputDevice(PIN_MOTOR_ENABLE, active_high=False)
+    direction = OutputDevice(PIN_MOTOR_DIRECTION)
 except gpiozero.BadPinFactory:
     logger.error("Couldn't setup GPIO pins. Assuming you are running on a dev machine")
-    motor = PinMock(4)
-    motor_enable = PinMock(27)
-    direction = PinMock(17)
+    motor = PinMock(PIN_MOTOR_STEP)
+    motor_enable = PinMock(PIN_MOTOR_ENABLE)
+    direction = PinMock(PIN_MOTOR_DIRECTION)
 
 motor_enable.off()
 
