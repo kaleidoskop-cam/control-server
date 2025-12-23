@@ -73,6 +73,7 @@ dependencies = [
     { name = "fastapi" },
     { name = "gpiozero" },
     { name = "python-dotenv" },
+    { name = "rpi-hardware-pwm" },
     { name = "uvicorn" },
 ]
 
@@ -81,6 +82,7 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.124.2" },
     { name = "gpiozero", specifier = ">=2.0.1" },
     { name = "python-dotenv", specifier = ">=1.2.1" },
+    { name = "rpi-hardware-pwm", specifier = ">=0.3.0" },
     { name = "uvicorn", specifier = ">=0.38.0" },
 ]
 
@@ -204,6 +206,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f0/26/19cadc79a718c5edbec86fd4919a6b6d3f681039a2f6d66d14be94e75fb9/python_dotenv-1.2.1.tar.gz", hash = "sha256:42667e897e16ab0d66954af0e60a9caa94f0fd4ecf3aaf6d2d260eec1aa36ad6", size = 44221, upload-time = "2025-10-26T15:12:10.434Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/14/1b/a298b06749107c305e1fe0f814c6c74aea7b2f1e10989cb30f544a1b3253/python_dotenv-1.2.1-py3-none-any.whl", hash = "sha256:b81ee9561e9ca4004139c6cbba3a238c32b03e4894671e181b671e8cb8425d61", size = 21230, upload-time = "2025-10-26T15:12:09.109Z" },
+]
+
+[[package]]
+name = "rpi-hardware-pwm"
+version = "0.3.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/be/0c/4308050d8b6bbe24e8e54b38e48b287b1e356efce33cd485ee4387fc92a9/rpi_hardware_pwm-0.3.0.tar.gz", hash = "sha256:1ec870633a795e98a31068565f067f82f64a8e1678069bcf8dd702fa2fb31b26", size = 4926, upload-time = "2025-05-23T14:50:45.768Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4c/44/c417f283a4ccdb214cc26583e9d54640ba6f2cea2a561355ca4829e885bb/rpi_hardware_pwm-0.3.0-py3-none-any.whl", hash = "sha256:9a1407512871232c64c55572c1bcd0a0c2872a4241df53b79ca3b5e185499ee5", size = 4772, upload-time = "2025-05-23T14:50:44.538Z" },
 ]
 
 [[package]]
