@@ -95,7 +95,7 @@ motor_enable.off()
 light_gpio.start(15)
 motor_gpio.stop()
 
-@app.post("/motor")
+@app.post("/hardware/motor", tags=["hardware"])
 def motor(body: schemas.Motor):
     """
     Change the speed of the motor. The frequency is given in Hz. Positive values turn the motor clockwise,
@@ -117,14 +117,14 @@ def motor(body: schemas.Motor):
         motor_gpio.change_frequency(abs(body.frequency))
         motor_enable.on()
 
-@app.post("/light")
+@app.post("/hardware/light", tags=["hardware"])
 def light(body: schemas.Light):
     """
     Change the brightness of the light. Brightness is given in percent (0-100).
     """
     light_gpio.change_duty_cycle(body.brightness)
 
-@app.post("/system/update", status_code=204)
+@app.post("/system/update", tags=["system"], status_code=204)
 def system_update():
     """
     Update the system by pulling the latest changes from git.
@@ -136,7 +136,7 @@ def system_update():
 
     return 204
 
-@app.get("/system/version")
+@app.get("/system/version", tags=["system"])
 def system_version() -> SystemVersionResponse:
     """
     Get the current git commit hash of the code on disk.
