@@ -131,7 +131,6 @@ def system_update():
 
     logger.info("Starting system update...")
     subprocess.run(["git", "pull"], check=True)
-    subprocess.run(["sudo", "systemctl", "restart", SYSTEMD_SERVICE_NAME])
     logger.info("System update completed successfully.")
 
     return 204
