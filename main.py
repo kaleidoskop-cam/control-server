@@ -9,6 +9,8 @@ from rpi_hardware_pwm import HardwarePWM, HardwarePWMException
 
 import logging
 
+from schemas import SystemVersionResponse
+
 load_dotenv()
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -69,6 +71,7 @@ def create_hardware_mock(name):
 PIN_MOTOR_ENABLE = int(os.getenv("PIN_MOTOR_ENABLE", 26))
 PIN_MOTOR_STEP = int(os.getenv("PIN_MOTOR_STEP", 13))
 PIN_MOTOR_DIRECTION = int(os.getenv("PIN_MOTOR_DIRECTION", 6))
+SYSTEMD_SERVICE_NAME = os.getenv("SYSTEMD_SERVICE_NAME", "kaleido-control-server.service")
 app = FastAPI()
 
 # configure raspberry pi output pins
@@ -118,3 +121,32 @@ def light(body: schemas.Light):
     Change the brightness of the light. Brightness is given in percent (0-100).
     """
     light_gpio.change_duty_cycle(body.brightness)
+
+@app.post("/system/update", status_code=204)
+def system_update():
+    """
+    Update the system by pulling the latest changes from git and restarting the service.
+    """
+    import subprocess
+
+    logger.info("Starting system update...")
+    subprocess.run(["git", "pull"], check=True)
+    subprocess.run(["systemctl", "restart", SYSTEMD_SERVICE_NAME], check=True)
+    logger.info("System update completed successfully.")
+
+    return 204
+
+@app.get("/system/version")
+def system_version() -> SystemVersionResponse:
+    """
+    Get the current git commit hash of the running code.
+    """
+    import subprocess
+
+    try:
+        result = subprocess.run(["git", "rev-parse", "HEAD"], check=True, capture_output=True, text=True)
+        commit_hash = result.stdout.strip()
+        return SystemVersionResponse(commit_hash=commit_hash)
+    except subprocess.CalledProcessError as e:
+        logger.error(f"Failed to get git commit hash: {e}")
+        return 500

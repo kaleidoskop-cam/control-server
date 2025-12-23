@@ -9,3 +9,6 @@ class Motor(BaseModel):
 
 class Light(BaseModel):
     brightness: Annotated[int, Field(strict=True, ge=0, le=100, default=10)]
+
+class SystemVersionResponse(BaseModel):
+    commit_hash: str
