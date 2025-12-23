@@ -81,7 +81,8 @@ try:
 
     motor_enable = OutputDevice(PIN_MOTOR_ENABLE, active_high=False)
     direction = OutputDevice(PIN_MOTOR_DIRECTION)
-except (gpiozero.BadPinFactory, HardwarePWMException):
+except (gpiozero.BadPinFactory, HardwarePWMException) as e:
+    logger.error(e)
     logger.error("Couldn't setup GPIO pins. Assuming you are running on a dev machine")
     from unittest.mock import MagicMock
     light_gpio = create_hardware_mock("Light")
