@@ -72,7 +72,7 @@ PIN_MOTOR_ENABLE = int(os.getenv("PIN_MOTOR_ENABLE", 26))
 PIN_MOTOR_STEP = int(os.getenv("PIN_MOTOR_STEP", 13))
 PIN_MOTOR_DIRECTION = int(os.getenv("PIN_MOTOR_DIRECTION", 6))
 SYSTEMD_SERVICE_NAME = os.getenv("SYSTEMD_SERVICE_NAME", "kaleido-control-server.service")
-app = FastAPI()
+app = FastAPI(title="Kaleido Raspberry Motor Controller")
 
 # configure raspberry pi output pins
 try:
