@@ -6,6 +6,7 @@ from fastapi import FastAPI
 import schemas
 from time import sleep
 from rpi_hardware_pwm import HardwarePWM, HardwarePWMException
+import subprocess
 
 import logging
 
@@ -129,8 +130,6 @@ def system_update():
     Update the system by pulling the latest changes from git.
     Requires hot reloading to be enabled for changes to take effect.
     """
-    import subprocess
-
     logger.info("Starting system update...")
     subprocess.run(["git", "pull"], check=True)
     logger.info("System update completed successfully.")
@@ -142,8 +141,6 @@ def system_version() -> SystemVersionResponse:
     """
     Get the current git commit hash of the code on disk.
     """
-    import subprocess
-
     try:
         result = subprocess.run(["git", "rev-parse", "HEAD"], check=True, capture_output=True, text=True)
         commit_hash = result.stdout.strip()
